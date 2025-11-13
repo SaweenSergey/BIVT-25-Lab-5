@@ -10,7 +10,19 @@ namespace Lab5
             int[] answer = null;
 
             // code here
-
+            int n = matrix.GetLength(0), m = matrix.GetLength(1);
+            int[] negative = new int[m];
+            for (int j = 0; j < m; j++)
+            {
+                for (int i = 0; i < n; i++)
+                {
+                    if (matrix[i, j] < 0)
+                    {
+                        negative[j]++;
+                    }
+                }
+            }
+            answer = negative;
             // end
 
             return answer;
@@ -19,6 +31,32 @@ namespace Lab5
         {
 
             // code here
+            int n = matrix.GetLength(0), m = matrix.GetLength(1);
+            int[] min = new int[n], index = new int[n];
+            for (int i = 0; i < n; i++)
+            {
+                min[i] = matrix[i, 0];
+                index[i] = 0;
+                for (int j = 0; j < m; j++)
+                {
+                    if (matrix[i, j] < min[i])
+                    {
+                        index[i] = j;
+                        min[i] = matrix[i, j];
+                    }
+                }
+            }
+            int penis;
+            for (int i = 0; i < n; i++)
+            {
+                penis = index[i];
+                while (penis > 0)
+                {
+                    matrix[i, penis] = matrix[i, penis - 1];
+                    penis--;
+                }
+                matrix[i, 0] = min[i];
+            }
 
             // end
 
@@ -28,7 +66,7 @@ namespace Lab5
             int[,] answer = null;
 
             // code here
-
+ 
             // end
 
             return answer;
