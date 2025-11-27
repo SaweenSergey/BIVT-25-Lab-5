@@ -286,7 +286,7 @@ namespace Lab5
                         i1++;
                         i2++;
                     }
-                    if (s1 > 0) 
+                    if (s1 > 0)
                     {
                         s1--;
                     }
@@ -322,7 +322,7 @@ namespace Lab5
                         }
                     }
                 }
-                while((MaxAbs_i != k) || (MaxAbs_j != k))
+                while ((MaxAbs_i != k) || (MaxAbs_j != k))
                 {
                     if ((MaxAbs_i < k) || (MaxAbs_i > k))
                     {
@@ -372,7 +372,35 @@ namespace Lab5
             int[,] answer = null;
 
             // code here
-
+            int n = A.GetLength(0), m = B.GetLength(1);
+            if (A.GetLength(1) == B.GetLength(0))
+            {
+                answer = new int[n, m];
+                for (int i = 0; i < m; i++)
+                {
+                    for (int j = 0; j < A.GetLength(1); j++)
+                    {
+                        for (int k = 0; k < n; k++)
+                        {
+                            answer[k, i] += (A[k, j] * B[j, i]);
+                        }
+                    }
+                }
+            }
+            else if (n == m)
+            {
+                answer = new int[B.GetLength(1), A.GetLength(1)];
+                for (int i = 0; i < A.GetLength(1); i++)
+                {
+                    for (int j = 0; j < n; j++)
+                    {
+                        for (int k = 0; k < B.GetLength(1); k++)
+                        {
+                            answer[k, i] += (B[k, j] * A[j, i]);
+                        }
+                    }
+                }
+            }
             // end
 
             return answer;
@@ -382,7 +410,35 @@ namespace Lab5
             int[][] answer = null;
 
             // code here
-
+            int n = matrix.GetLength(0), m = matrix.GetLength(1);
+            answer = new int[n][];
+            int[] flags = new int[n];
+            for (int i = 0; i < n; i++)
+            {
+                for (int j = 0; j < m; j++)
+                {
+                    if (matrix[i, j] > 0)
+                    {
+                        flags[i]++;
+                    }
+                }
+            }
+            for (int i = 0; i < n; i++)
+            {
+                if (flags[i] != 0)
+                {
+                    answer[i] = new int[flags[i]];
+                }
+                flags[i] = 0;
+                for (int j = 0; j < m; j++)
+                {
+                    if (matrix[i, j] > 0)
+                    {
+                        answer[i][flags[i]] = matrix[i, j];
+                        flags[i]++;
+                    }
+                }
+            }
             // end
 
             return answer;
@@ -392,12 +448,29 @@ namespace Lab5
             int[,] answer = null;
 
             // code here
-
+            int n = array.Length;
+            int AllLength = 0;
+            for (int i = 0; i < n; i++)
+            {
+                AllLength += array[i].Length;
+            }
+            int square = (int)Math.Ceiling(Math.Sqrt(AllLength));
+            int CurrentLength = 0;
+            int c = 0;
+            answer = new int[square, square];
+            for (int i = 0; i < n; i++)
+            {
+                while (c < array[i].Length)
+                {
+                    answer[CurrentLength / square, CurrentLength % square] = array[i][c];
+                    c++;
+                    CurrentLength++;
+                }
+                c = 0;
+            }
             // end
 
             return answer;
         }
     }
-
 }
-
