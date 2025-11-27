@@ -270,7 +270,33 @@ namespace Lab5
             int[] answer = null;
 
             // code here
-
+            int n = matrix.GetLength(0), m = matrix.GetLength(1);
+            if (n == m)
+            {
+                int[] sums = new int[(2 * n) - 1];
+                int s1 = n - 1, s2 = 0;
+                int i1, i2;
+                for (int i = 0; i < (2 * n) - 1; i++)
+                {
+                    i1 = s1;
+                    i2 = s2;
+                    while ((i1 < n) && (i2 < m))
+                    {
+                        sums[i] += matrix[i1, i2];
+                        i1++;
+                        i2++;
+                    }
+                    if (s1 > 0) 
+                    {
+                        s1--;
+                    }
+                    else
+                    {
+                        s2++;
+                    }
+                }
+                answer = sums;
+            }
             // end
 
             return answer;
@@ -314,4 +340,5 @@ namespace Lab5
             return answer;
         }
     }
+
 }
