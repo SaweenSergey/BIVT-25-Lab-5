@@ -305,7 +305,65 @@ namespace Lab5
         {
 
             // code here
-
+            int n = matrix.GetLength(0), m = matrix.GetLength(1);
+            int MaxAbs = int.MinValue;
+            int MaxAbs_i = 0, MaxAbs_j = 0;
+            if ((n == m) && (k < n))
+            {
+                for (int j = 0; j < m; j++)
+                {
+                    for (int i = 0; i < n; i++)
+                    {
+                        if (Math.Abs(matrix[i, j]) > MaxAbs)
+                        {
+                            MaxAbs = Math.Abs(matrix[i, j]);
+                            MaxAbs_i = i;
+                            MaxAbs_j = j;
+                        }
+                    }
+                }
+                while((MaxAbs_i != k) || (MaxAbs_j != k))
+                {
+                    if ((MaxAbs_i < k) || (MaxAbs_i > k))
+                    {
+                        if (MaxAbs_i < k)
+                        {
+                            for (int i = 0; i < m; i++)
+                            {
+                                (matrix[MaxAbs_i, i], matrix[MaxAbs_i + 1, i]) = (matrix[MaxAbs_i + 1, i], matrix[MaxAbs_i, i]);
+                            }
+                            MaxAbs_i++;
+                        }
+                        else
+                        {
+                            for (int i = 0; i < m; i++)
+                            {
+                                (matrix[MaxAbs_i, i], matrix[MaxAbs_i - 1, i]) = (matrix[MaxAbs_i - 1, i], matrix[MaxAbs_i, i]);
+                            }
+                            MaxAbs_i--;
+                        }
+                    }
+                    else
+                    {
+                        if (MaxAbs_j < k)
+                        {
+                            for (int i = 0; i < n; i++)
+                            {
+                                (matrix[i, MaxAbs_j], matrix[i, MaxAbs_j + 1]) = (matrix[i, MaxAbs_j + 1], matrix[i, MaxAbs_j]);
+                            }
+                            MaxAbs_j++;
+                        }
+                        else
+                        {
+                            for (int i = 0; i < n; i++)
+                            {
+                                (matrix[i, MaxAbs_j], matrix[i, MaxAbs_j - 1]) = (matrix[i, MaxAbs_j - 1], matrix[i, MaxAbs_j]);
+                            }
+                            MaxAbs_j--;
+                        }
+                    }
+                }
+            }
             // end
 
         }
@@ -342,3 +400,4 @@ namespace Lab5
     }
 
 }
+
